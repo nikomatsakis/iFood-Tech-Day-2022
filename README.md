@@ -1,3 +1,2 @@
-# Talk template
+# Talk for iFood Tech Day 2022
 
-Clone this repo for new talks
