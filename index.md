@@ -21,6 +21,14 @@ count: false
 
 ---
 
+# Rust sprouting up all over
+
+.center[.p80[![Foundation sponsors](images/foundation-sponsors.png)]]
+
+... and those are just the foundation sponsors.
+
+---
+
 # What is this "Rust"
 
 From the website:
@@ -29,43 +37,87 @@ From the website:
 
 ---
 
-# Rust's goal
+# My goal
 
+.center[
+Make Rust the language of choice whenever
 
----
+**reliability**
 
-# Rust sprouting up all over
+and
 
-![Foundation sponsors](images/sponsors.jpg)
+**performance**
 
-... and those are just the foundation platinum sponsors.
+are top considerations.
+]
 
 ---
 
 # Rust as the foundational layer
 
-My goal is simple. To make Rust an amazing language for building "foundational" programs...
+* Cloud providers like AWS, Microsoft, Google, Fastly, Cloudflare, etc
 
-* Programs where reliability counts.
-* Programs where performance, scalability are paramount.
-* The stuff everything else builds on top of.
+--
+
+!["Why AWS loves Rust"](./images/why-aws-loves-rust.png)
+
+--
+
+.p60[!["Microsoft: Rust is the industry's 'Best Chance' at Safe Systems Programming"](./images/microsoft-rust-best-chance.png)]
+
+.citation[
+    `https://aws.amazon.com/blogs/opensource/why-aws-loves-rust-and-how-wed-like-to-help/` <br/>
+    `https://www.zdnet.com/article/microsofts-rust-experiments-are-going-well-but-some-features-are-missing/`
+]
 
 ---
 
-# Foundational programs
+# Rust as the foundational layer
 
-* Cloud providers like AWS, Microsoft, Google, Cloudflare, etc
-* Linux kernel
+* Operating system kernels
+
+--
+
+.p60[!["Rust in the linux kernel by 2023, Linus Torvalds predicts"](./images/rust-in-linux-kernel-by-2023.png)]
+
+--
+
+.p60[!["Microsoft: Rust is the industry's 'Best Chance' at Safe Systems Programming"](./images/microsoft-rust-experiments.png)]
+
+.citation[
+    `https://thenewstack.io/rust-in-the-linux-kernel-by-2023-linus-torvalds-predicts/` <br/>
+    `https://www.zdnet.com/article/microsofts-rust-experiments-are-going-well-but-some-features-are-missing/`
+]
+
+---
+
+# Rust as the foundational layer
+
 * Embedded IoT
 
-But also...
+---
 
-* Your web service that moves a lot of traffic, actually
-* The 
+# Rust as the foundational layer
+
+Stuff like...
+
+* Cloud providers like AWS, Microsoft, Google, Fastly, Cloudflare, etc
+* Operating system kernels
+* Embedded IoT
+
+--
+
+...but also:
+
+* Your web service that moves a lot of traffic, actually.
+* The core logic of your mobile app that you'd like to share between Android and iOS.
+* That nifty new idea you have for a game. 
 
 ---
 
 # Most folks come for the performance
+
+--
 
 ![Why discord is switching from Go to Rust](./images/why-discord-is-switching-from-go-to-rust.png)
 
@@ -154,21 +206,6 @@ So about 12 years ago, it was recognized that this could be done in parallel. In
 ???
 
 The 3rd and final attempt used Rust, and had the codename stylo. This version landed -- though it too was a non-trivial effort, don't get me wrong! Using Rust helped to give the team confidence that they could not only make the code work, but they could maintain it over time. For one thing, the Rust type system helped them to find bugs and logic errors at compilation time, instead of having to test the heck out of the thing. So this was a clear case where Rust enabled the team, a group of hardened C++ experts, to do something they had not been able to achieve before.
-
----
-
-# Design goals for Rust
-
-| | |
-| --- | --- |
-| ⚙️ Reliable | "If it compiles, it works" |
-| 🐎 Performant | "idiomatic code runs efficiently" |
-| 🥰 Supportive | "the language, tools, and community are here to help" |
-| 🧩 Productive | "a little effort does a lot of work" |
-| 🔧 Transparent | "you can predict and control low-level details" |
-| 🤸 Versatile | "you can do anything with Rust" |
-
-.citation[Caveat: These are goals that some of us drafted, not official design goals of the Rust project.]
 
 ---
 
@@ -504,7 +541,31 @@ https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=4a87aac5
 
 ---
 
-# What just happened?
+# A pattern
+
+- Easy to **expose** a high-performance API
+- Hard to **help users control it**
+
+.center[![cast spell, burn self](images/firespell.gif)]
+
+---
+
+# Design goals for Rust
+
+| | |
+| --- | --- |
+| ⚙️ Reliable | "If it compiles, it works" |
+| 🐎 Performant | "idiomatic code runs efficiently" |
+| 🥰 Supportive | "the language, tools, and community are here to help" |
+| 🧩 Productive | "a little effort does a lot of work" |
+| 🔧 Transparent | "you can predict and control low-level details" |
+| 🤸 Versatile | "you can do anything with Rust" |
+
+.citation[Caveat: These are goals that some of us drafted, not official design goals of the Rust project.]
+
+---
+
+# A common sensation
 
 --
 
@@ -512,15 +573,111 @@ https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=4a87aac5
 
 ---
 
-# A pattern
-
-- Easy to **expose** a high-performance API
-- Hard to **help users control it**
-
-![cast spell, burn self](images/firespell.gif)]
-
----
-
 # This could be you
 
 .center[.p80[![Wiley E Coyote flies](images/wiley-flies.gif)]]
+
+---
+
+# Full disclosure time
+
+--
+
+.center[![Who'd have thought a linked list could be so complicated?](images/doh-whod-have-thought.png)]
+
+---
+
+# What we're shooting for
+
+```
+ ^  |
+ |  |
+ P  │ C++                   
+ e  │ 
+ r  │ 
+ f  │ 
+ o  │ 
+ r  │ 
+ m  │ 
+ a  │ 
+ n  │ 
+ c  │ 
+ e  │ 
+    │                           JS, Ruby, Python
+    └─────────────────────────────────
+           Ease of use -->
+```
+
+.bam-rust[
+  ![Rust logo](images/rust-logo-512x512.png)
+]
+
+---
+
+# Where we landed
+
+```
+ ^  |
+ |  |
+ P  │ C++   
+ e  │       
+ r  │       
+ f  │       
+ o  │       
+ r  │       
+ m  │       
+ a  │       
+ n  │       
+ c  │        
+ e  │        
+    │                           JS, Ruby, Python
+    └─────────────────────────────────
+           Ease of use -->
+```
+
+.transparent[
+.bam-rust[
+  ![Rust logo](images/rust-logo-512x512.png)
+]
+]
+
+.whimper-rust[
+  ![Rust logo](images/rust-logo-512x512.png)
+]
+
+---
+
+# OMG so perfect
+
+<br/>
+<br/>
+<br/>
+
+<q>Rust: the language where you get the hangover first</q>
+
+-- Old Rust proverb <sup>1</sup>
+
+.citation[
+  <sup>1</sup> I've yet to find the origin of this quote.<sup>2</sup> <br/>
+  <sup>2</sup> Although I have a sneaking suspicion that somebody tweeted it at me and I forgot.
+]
+
+---
+
+# Rust rocks 🎸...
+
+???
+
+The fact is, Rust really rocks...
+
+--
+
+## ...once you learn it 😬
+
+???
+
+...once you learn it! But that can be quite difficult.
+
+---
+
+# So where do we go from here?

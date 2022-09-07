@@ -643,3 +643,33 @@ blockquote p {
   bottom: 125px;
   font-size: 2.5em;
 }
+
+
+
+
+
+
+
+
+
+
+
+.bam-rust {
+  position: absolute;
+  top: 70px;
+  left: 300px;
+  width: 25%;
+  height: auto;
+}
+
+.whimper-rust {
+  position: absolute;
+  top: 125px;
+  left: 200px;
+  width: 10%;
+  height: auto;
+}
+
+.transparent {
+  opacity: 30%;
+}
