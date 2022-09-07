@@ -37,18 +37,34 @@ From the website:
 
 ---
 
-# My goal
+# What is this "Rust"
+
+From the website:
+
+> A language empowering everyone to build **reliable and efficient** software.
+
+---
+
+# What is this "Rust"
+
+From the website:
+
+> A language **empowering everyone** to build reliable and efficient software.
+
+---
+
+# The goal is simple
 
 .center[
-Make Rust the language of choice whenever
+  .p40[
+    ![Lucy](images/Rust_Lucy-Art-A.svg)
+  ]
+]
 
-**reliability**
+.center[Help you build the things you want to build.]
 
-and
-
-**performance**
-
-are top considerations.
+.citation[
+  RustConf 2017 artwork owned by [Tilde](https://www.tilde.io/) and licensed under Creative Commons.
 ]
 
 ---
@@ -60,8 +76,6 @@ are top considerations.
 --
 
 !["Why AWS loves Rust"](./images/why-aws-loves-rust.png)
-
---
 
 .p60[!["Microsoft: Rust is the industry's 'Best Chance' at Safe Systems Programming"](./images/microsoft-rust-best-chance.png)]
 
@@ -79,8 +93,6 @@ are top considerations.
 --
 
 .p60[!["Rust in the linux kernel by 2023, Linus Torvalds predicts"](./images/rust-in-linux-kernel-by-2023.png)]
-
---
 
 .p60[!["Microsoft: Rust is the industry's 'Best Chance' at Safe Systems Programming"](./images/microsoft-rust-experiments.png)]
 
@@ -680,4 +692,362 @@ The fact is, Rust really rocks...
 
 ---
 
-# So where do we go from here?
+# Our challenge
+
+* Stay true to Rust's soul: reliability, performance, transparency
+* While improving Rust's supportiveness, productivity, and versatility
+
+???
+
+Our challenge is to find ways to improve Rust's productivity while staying true to the things that make Rust Rust.
+
+It's not always easy. There are a few dangers.
+
+Complacency.
+
+Overreach and leaky abstractions.
+
+Goal: incremental progress. Find our way.
+
+---
+
+# Another challenge: being bold
+
+<q>Avoid success at all costs</q>
+
+-- Unofficial Haskell slogan
+
+???
+
+Haskellers often say they wish to "avoid success at all costs".
+
+Why? Because they want the freedom to keep innovating.
+
+With success comes the problems of backwards compatibility and the challenges of satisfying an existing set of users.
+
+Rust has achieved success. But I still want us to soar.
+
+How do we do that? Part of is that we have to *be bold*.
+
+Just because something seems hard, or because we've always done it that way, doesn't mean we should.
+
+I'm going to give a few examples of hard problems in this talk -- ones that I think are controversial, but which have real impact on Rust's users.
+
+---
+
+# Rust learning curve
+
+Q: When is a Rust user most open to learning how Rust works?
+
+--
+* When they're reading the Rust book for the first time?
+
+--
+* Once they know things work?
+
+---
+
+# Rust learning curve
+
+Q: When is a Rust user most open to learning how Rust works?
+
+A: when they hit a compiler error!
+
+```
+error: return types are denoted using `->`
+ --> src/main.rs:1:21
+  |
+1 | fn meaning_of_life(): u32 { 42 }
+  |                     ^ help: use `->` instead
+```
+
+---
+
+# Rust learning curve
+
+Q: What is the first thing a Rust user has to know to understand the error?
+
+--
+* The Rust type system?
+
+--
+* Ownership and borrowing
+
+---
+
+# Rust learning curve
+
+Q: What is the first thing a Rust user has to know to understand the error?
+
+A: English.
+
+---
+
+# Diagnostic translation effort
+
+.p40[![Translation](./images/diagnostic-translation-efforts.png)]
+
+```
+error: el tipo de retorno se debe indicar mediante `->`
+ --> src/main.rs:1:21
+  |
+1 | fn meaning_of_life(): u32 { 42 }
+  |                     ^ ayuda: utilice `->` en su lugar
+```
+
+.citation[
+  Shoutout to David Wood and the folks from Diagnostics Working Group driving this effort.<br/>
+  Read more at https://blog.rust-lang.org/inside-rust/2022/08/16/diagnostic-effort.html.
+]
+
+---
+
+# Helping people learn in other ways
+
+.center[.p80[![rust-edu](images/rust-edu.png)]]
+
+---
+
+# Learning more about how people learn Rust?
+
+![Learning from teachers, students](images/Lang-team-inputs.svg)
+
+---
+
+# Being bold: Telemetry?
+
+* It would be really useful if we knew
+  * what error codes people hit
+  * what they do in response to those errors
+  * how many people are hitting a bug that was just reported
+* But:
+  * If we were to do this, have to be careful to respect privacy
+
+---
+
+# Async Rust
+
+Async-await shipped in 2019...
+
+```rust
+async fn send_message(
+  input: Reader,
+  output: Writer,
+) -> io::Result<()> {
+  let data = input.read_data().await?;
+  output.write_data(data).await?;
+}
+```
+
+...and it's sparked an explosion in network-related Rust apps.
+
+---
+
+name: async-needs-work
+
+# Async Rust needs work
+
+```rust
+trait Iterator {
+  type Item;
+
+  fn next(&mut self) -> Option<Self::Item>;
+}
+```
+
+---
+template: async-needs-work
+
+.line2[![Arrow](./images/Arrow.png)]
+
+---
+template: async-needs-work
+
+.line4[![Arrow](./images/Arrow.png)]
+
+---
+
+# Async Rust needs work
+
+```rust
+trait Iterator {
+  type Item;
+
+  fn next(&mut self) -> Option<Self::Item>;
+}
+```
+
+Q: What does the async version of the `Iterator` trait look like?
+
+---
+
+# Async Rust needs work
+
+A: There isn't one! Because async doesn't work in traits.
+
+---
+
+# Async fns in traits
+
+```rust
+pub trait AsyncIterator {
+    type Item;
+
+    async fn next(&mut self) -> Option<Self::Item>;
+}
+```
+
+This is what we are shooting for.
+
+.line4[![Arrow](./images/Arrow.png)]
+
+---
+
+# Async fns in traits
+
+Current status:
+
+* ✅ Design: approaching completion
+* ✏️ Implementation: ongoing
+* ⌛ Stablization: next year
+
+.citation[
+  Shoutout to Tyler Mandry, who worked on the design with me,
+  as well as Santiago Pastorino, Eric Holk, Michael Goulet,
+  but also Jack Huey for his work on GATs and Oli Scherer for
+  his work on TAITs. It takes a village.
+]
+
+
+---
+
+# Other async Rust language features
+
+
+.citation[
+  <sup>1</sup> The code that runs when a variable goes out of scope (aka, destructors).
+]
+
+* Goal: use async/await anywhere you write code
+  * ✅ top-level async fns
+  * ✏️ async fn in traits
+  * ⌛ async drop<sup>1</sup>
+  * ⌛ async closures
+
+--
+  * 🤔 in iterator chains?
+
+---
+
+name: iterator-chain
+
+# Iterator chains?
+
+```rust
+fn find_element(data: &[Data]) -> Result {
+  x.iter()
+      .filter(|datum| datum.is_valid())
+      .map(|datum| datum.intermediate_result())
+      .max()
+}
+```
+
+---
+
+template: iterator-chain
+
+.line2[![Highlight iter](images/Arrow.png)]
+
+---
+
+template: iterator-chain
+
+.line3[![Highlight filter](images/Arrow.png)]
+
+---
+
+template: iterator-chain
+
+.line4[![Highlight map](images/Arrow.png)]
+
+---
+
+template: iterator-chain
+
+.line5[![Highlight max](images/Arrow.png)]
+
+---
+
+# Iterator chains with await
+
+```rust
+fn find_element(data: &[Data]) -> Result {
+  x.iter()
+      .filter(|datum| datum.is_valid())
+      .map(|datum| datum.intermediate_result().await)
+      .max()
+}
+```
+
+--
+
+.line4[![Highlight await](images/Arrow.png)]
+
+---
+
+# "Color" problem<sup>1</sup>
+
+No way to write a function that *might* be async.
+
+Do we need to make two iterators? 
+
+What if we to support `const fn`, do we need three?
+
+(For folks who know Rust, what about if we want to support `?` -- do we need four?)
+
+.citation[
+  <sup>1</sup> The term "color" comes from the classic blog post, ["What color is your function?"](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/), describing a similar phenomena in JavaScript.
+]
+
+---
+
+name: keyword-generics
+
+# Being bold: "keyword" generics
+
+```rust
+async<A> fn read_to_string(
+  reader: &mut impl Read * A,
+) -> std::io::Result<String> {
+    let mut string = String::new();
+    reader.read_to_string(&mut string).await?;
+    string
+}
+```
+
+Goal: Write code that might be async, might be const, etc.
+
+.citation[
+  Led by Yoshua Wuyt and Oli Scherer. Read more: https://blog.yoshuawuyts.com/announcing-the-keyword-generics-initiative/
+]
+
+---
+
+template: keyword-generics
+
+.line1[![Highlight await](images/Arrow.png)]
+
+---
+
+template: keyword-generics
+
+.line2[![Highlight await](images/Arrow.png)]
+
+---
+
+# Conclusion
+
+Rust over the next few years:
+
+
+
