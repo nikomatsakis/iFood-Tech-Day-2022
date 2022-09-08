@@ -37,19 +37,27 @@ From the website:
 
 ---
 
-# What is this "Rust"
+# When should I use it?
 
 From the website:
 
-> A language empowering everyone to build **reliable and efficient** software.
+> A language empowering everyone to build **reliable and efficient software**.
+
+Rust's design assumes you're want to invest the time to make your software more reliable, more efficient.
+
+.citation[
+  Doesn't mean you can't use it for anything and everything, mind you. 😁
+]
 
 ---
 
-# What is this "Rust"
+# But also...
 
 From the website:
 
 > A language **empowering everyone** to build reliable and efficient software.
+
+Rust is meant to be accessible and productive.
 
 ---
 
@@ -61,10 +69,12 @@ From the website:
   ]
 ]
 
-.center[Help you build the things you want to build.]
+.center[Hack without fear!]
 
 .citation[
   RustConf 2017 artwork owned by [Tilde](https://www.tilde.io/) and licensed under Creative Commons.
+
+  Slogan coined by Felix Klock.
 ]
 
 ---
@@ -123,7 +133,7 @@ Stuff like...
 
 * Your web service that moves a lot of traffic, actually.
 * The core logic of your mobile app that you'd like to share between Android and iOS.
-* That nifty new idea you have for a game. 
+* Development tools that need to run fast. 
 
 ---
 
@@ -131,7 +141,7 @@ Stuff like...
 
 --
 
-![Why discord is switching from Go to Rust](./images/why-discord-is-switching-from-go-to-rust.png)
+.p60[![Why discord is switching from Go to Rust](./images/why-discord-is-switching-from-go-to-rust.png)]
 
 > Remarkably, we had only put very basic thought into optimization as the Rust version was written. **Even with just basic optimization, Rust was able to outperform the hyper hand-tuned Go version.** This is a huge testament to how easy it is to write efficient programs with Rust compared to the deep dive we had to do with Go.
 
@@ -142,11 +152,47 @@ Stuff like...
 
 ---
 
-# But they stay for the safety
+# But then they fall in love
+
+But look at what comes next:
+
+> Along with performance, Rust has many advantages for an engineering team. For example, **its type safety and borrow checker make it very easy to refactor code as product requirements change or new learnings about the language are discovered**. Also, the ecosystem and tooling are excellent and have a significant amount of momentum behind them.
+
+.citation[`https://discord.com/blog/why-discord-is-switching-from-go-to-rust` (emphasis mine)]
+
+---
+
+# It's not just discord
+
+Or pinecone.io:
+
+> What we didn’t expect was the extent to which dev velocity increased and operational incidents decreased. **Dev velocity**, which was supposed to be the claim to fame of Python, **improved dramatically with Rust**. \[..\] Most impressively though, real time operational events dropped almost to zero overnight after the original release. Sure, there are still surprises here and there but, by and large, the core engine has been shockingly stable and predictable.
+
+.citation[`https://www.pinecone.io/learn/inside-the-pinecone/#rust-a-hard-decision-pays-off` (emphasis mine)]
+
+---
+
+# It's not just discord
+
+Or Cultivate:
+
+> "Rust allowed the experienced developers to move fast and develop features quickly with less errors, and allowed those exploring systems development for the first time to **move forward with confidence, curiosity and protection** from the "gotchas" of C/C++."
+
+.citation[`https://cultivatehq.com/posts/how-we-built-a-visual-studio-code-extension-for-iot-prototyping/` (emphasis mine)]
+
+---
+
+# What is the key to this confidence?
 
 --
 
-.center[<img src="images/biden-huh.gif" alt="Biden looking confused" width="100%" height="auto">]
+A strict (and sometimes annoying) type system!
+
+--
+
+.center[
+  .p60[!["Biden looking confused"](images/biden-huh.gif)]
+]
 
 ---
 
@@ -168,26 +214,6 @@ background-size: contain
 .white-text[.citation[
 Image credit: Salim Virji `https://www.flickr.com/photos/salim/8594532469/`
 ]]
-
----
-
-# Don't take my word for it
-
-Listen to Discord:
-
-> Along with performance, Rust has many advantages for an engineering team. For example, **its type safety and borrow checker make it very easy to refactor code as product requirements change or new learnings about the language are discovered**. Also, the ecosystem and tooling are excellent and have a significant amount of momentum behind them.
-
-.citation[`https://discord.com/blog/why-discord-is-switching-from-go-to-rust` (emphasis mine)]
-
----
-
-# Don't take my word for it
-
-Or pinecone.io:
-
-> What we didn’t expect was the extent to which dev velocity increased and operational incidents decreased. **Dev velocity**, which was supposed to be the claim to fame of Python, **improved dramatically with Rust**. \[..\] Most impressively though, real time operational events dropped almost to zero overnight after the original release. Sure, there are still surprises here and there but, by and large, the core engine has been shockingly stable and predictable.
-
-.citation[`https://www.pinecone.io/learn/inside-the-pinecone/#rust-a-hard-decision-pays-off` (emphasis mine)]
 
 ---
 
@@ -1047,7 +1073,7 @@ template: keyword-generics
 
 # Conclusion
 
-Rust over the next few years:
+Rust's goal:
 
-
+Be the language of choice when reliability, performance are top considerations.
 
