@@ -1229,6 +1229,18 @@ you probably don't understand this aspect of ownership. And then offer you tailo
   Slogan coined by Felix Klock.
 ]
 
+???
+
+So that brings us to the end of the talk.
+
+I've given you a kind of survey of what's happening in Rust as I see it, and some idea of where I think we'll be going next.
+
+But I wanted to leave you with this picture, which comes from RustConf a few years back.
+
+I think it always captured the spirit that we are going for with Rust -- a tool that helps you to build that crazy jetpack idea that you have and actually see it work and fly.
+
+Thanks.
+
 ---
 
 class: center
