@@ -1377,6 +1377,8 @@ The cloud compute program gives access to cloud desktops for people with laptops
 .p60[![types team](./images/types-team.png)]
 
 .citation[
+  `https://rust-lang.github.io/types-team/`
+
   Co-led by Jack Huey and myself.
 ]
 
@@ -1390,6 +1392,8 @@ One thing we've noticed recently is that there are particular areas that need ca
 We've been making an effort to build up teams dedicated to those particular areas.
 
 One such example is the types team, which I co-lead, along with Jack Huey, dedicated to improving Rust's type system implementation and trait solver. 
+
+If you're interested in getting involved in that sort of thing, check out the `#t-types` Zulip stream.
 
 The hope is that these dedicated teams will improve our ability to fix bugs and land features.
 
