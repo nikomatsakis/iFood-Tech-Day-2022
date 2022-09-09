@@ -821,10 +821,30 @@ fn find_element(data: &[Data]) -> Output {
 ???
 
 But what if we wanted to put an `await` in the middle of that iterator?
+Well, that's not going to work, because this code is using the *sequential* Iterator,
+and that doesn't support async-await.
 
-In most languages that have async-await, you can't do this.
+So you probably have to change something to get an *async iterator*.
 
-You need to have a separate set of functions, maybe change it to call `async_iter` or something, to be in async iteration mode.
+
+---
+
+# Iterator chains with await
+
+```rust
+fn find_element(data: &[Data]) -> Output {
+  x.async_iter()
+      .filter(|datum| datum.is_valid())
+      .map(|datum| datum.intermediate_result().await)
+      .max()
+}
+```
+
+.line2[![Highlight await](images/Arrow.png)]
+
+???
+
+Maybe you have to write `.async_iter` instead, for example. Not too bad, but you have to know to do it.
 
 ---
 
@@ -1116,11 +1136,9 @@ Some highlights:
 
 I mentioned at the beginning that Rust is a community project.
 One of the challenges that we've faced over time is how to organize the Rust project itself.
-You see, we're a big, open-source organization, with 100s of members.
-Unlike companies, though, those members don't get paid. 
-They contribute in their own time.
-
-Open source is awesome, but organizing all of those efforts to produce a coherent role is a real challenge.
+You see, we're a big, open-source organization with hundreds of regular contributors.
+Many of those contributors work at companies that pay them to work on Rust, but many are volunteers.
+We need to help this open-source organization grow and thrive.
 
 ---
 
