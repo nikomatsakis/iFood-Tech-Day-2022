@@ -533,7 +533,6 @@ I'm also sure that in between this talk and 2024, people are going to have new a
 Some highlights:
 
 * ➡️ Better async Rust experience
-* Core language extensions
 * Richer diagnostics
 * More learning materials
 
@@ -907,107 +906,6 @@ But if it works out, it will make writing async Rust code that much more natural
 Some highlights:
 
 * ✅ Better async Rust experience
-* ➡️ Core language extensions
-* Richer diagnostics
-* More learning materials
-
----
-
-# Improving the borrow checker
-
-* Rust 2015: "Lexical lifetimes"
-* Rust 2018: "Non-lexical lifetimes" (NLL)
-* Rust 2021: Improved closure capture
-* Rust 2024: Polonius
-
-???
-
-The borrow checker is the core part of Rust's type system that sets it apart from other languages.
-It's what allows Rust to be memory safe without a garbage collector and what ensures fearless concurrency.
-
-Every time we've released a Rust edition, we've made major improvements to the borrow checker.
-You see, the borrow checker, like any static analysis, is approximate. It blocks a lot of bad code, but it blocks perfectly reasonable code too.
-So each edition we improve the rules to accept more and more things.
-
----
-
-# Impl trait everywhere
-
-```rust
-impl MyCollection {
-  fn get_contents(
-    &self
-  ) -> impl Iterator<Item = DataItem> {
-      ...
-  }
-}
-```
-
-.line4[![impl Draw](images/Arrow.png)]
-
-???
-
-Today in Rust we support a notation we call `impl Trait`.
-This method, for example, uses `-> impl Iterator` to say that it returns
-"some type that is an iterator over `DataItem` values".
-
-This notation is very useful and very popular.
-
-But it's also quite limited.
-For example, I can use it on an "inherent method" that is defined on some specific type (`MyCollection`, in this example).
-
----
-
-# Impl trait everywhere
-
-```rust
-// Not supported:
-trait AnyCollection {
-  fn get_contents(&self) -> impl Iterator<Item = DataItem>;
-}
-```
-
-???
-
-But I can't use it in a trait. 
-That's too bad, because often I would like to!
-The good news is that we are working on making it work.
-
----
-
-# Core language extensions (summary)
-
-In progress:
-
-* Better borrow checker ("polonius")
-* Impl trait everywhere
-* Generic associated types (GATs)
-
-Being bold:
-
-* View types?
-* With clauses?
-
-???
-
-I've covered a few different kinds of core language extensions.
-We have more in the works.
-I think a common theme for most of these, though, is lifting limits.
-In many cases, there are "edges" to Rust features that we'd like to lift:
-things that cannot be used in combination, or what require
-
-
-
-
-
----
-
-# Rust in 2024
-
-Some highlights:
-
-* ✅ Smarter core analyses
-* ✅ Better async Rust experience
 * ➡️ Richer diagnostics
 * More learning materials
 
@@ -1144,7 +1042,6 @@ diesel::query_builder::IntoUpdateTarget>rustc(E0277)
 Some highlights:
 
 * ✅ Better async Rust experience
-* ✅ Core language extensions
 * ✅ Richer diagnostics
 * ➡️ More learning materials
 
@@ -1210,6 +1107,22 @@ if a kid is making this mistake, it's probably because they don't understand thi
 
 I'd like to get to that point in Rust. Where we can say, if you are seeing this sequence of errors,
 you probably don't understand this aspect of ownership. And then offer you tailored teaching materials to fix that.
+
+---
+
+# Rust in 2024
+
+Some highlights:
+
+* ✅ Better async Rust experience
+* ✅ Richer diagnostics
+* ✅ More learning materials
+
+So much I didn't talk about...
+
+* Better borrow checking (polonius)
+* Impl trait everywhere
+* Generic associated types
 
 ---
 
