@@ -1426,23 +1426,6 @@ What I like best about programs like these is that they help deliver on Rust's g
 
 ---
 
-# Rust in 2024
-
-Did I say there's a lot going on?
-
-* Language extensions like a better borrow checker (polonius), impl trait everywhere, or generic associated types (GATs)
-* Rules for unsafe code and formal models for Rust
-* Library efforts, especially around polonius
-* ...
-
-???
-
-That brings us to the end of my talk. 
-There's so much that I'd love to talk about but there's only so much time.
-I've included a few items here on the slide, but I'm sure I'm forgetting about things.
-
----
-
 # Conclusion
 
 .center[
