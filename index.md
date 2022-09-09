@@ -533,8 +533,8 @@ I'm also sure that in between this talk and 2024, people are going to have new a
 Some highlights:
 
 * ➡️ Better async Rust experience
-* Richer diagnostics
-* More learning materials
+* Richer diagnostics and learning materials
+* Improved community organization
 
 ???
 
@@ -906,8 +906,8 @@ But if it works out, it will make writing async Rust code that much more natural
 Some highlights:
 
 * ✅ Better async Rust experience
-* ➡️ Richer diagnostics
-* More learning materials
+* ➡️ Richer diagnostics and learning materials
+* Improved community organization
 
 ---
 
@@ -1037,16 +1037,6 @@ diesel::query_builder::IntoUpdateTarget>rustc(E0277)
 
 ---
 
-# Rust in 2024
-
-Some highlights:
-
-* ✅ Better async Rust experience
-* ✅ Richer diagnostics
-* ➡️ More learning materials
-
----
-
 # Rust book
 
 .center[.p40[![Rust book cover](images/rustbook.webp)]]
@@ -1115,14 +1105,108 @@ you probably don't understand this aspect of ownership. And then offer you tailo
 Some highlights:
 
 * ✅ Better async Rust experience
-* ✅ Richer diagnostics
-* ✅ More learning materials
+* ✅ Richer diagnostics and learning materials
+* ➡️ Improved organization of the Rust project
 
-So much I didn't talk about...
+---
 
-* Better borrow checking (polonius)
-* Impl trait everywhere
-* Generic associated types
+# Improved organization of the Rust project
+
+???
+
+I mentioned at the beginning that Rust is a community project.
+One of the challenges that we've faced over time is how to organize the Rust project itself.
+You see, we're a big, open-source organization, with 100s of members.
+Unlike companies, though, those members don't get paid. 
+They contribute in their own time.
+
+Open source is awesome, but organizing all of those efforts to produce a coherent role is a real challenge.
+
+---
+
+# Shout-out to the Rust foundation
+
+Rust Foundation has launched some great efforts...
+
+* [Community grants program](https://foundation.rust-lang.org/news/2022-06-14-community-grants-program-awards-announcement/)
+* [Cloud compute program](https://foundation.rust-lang.org/news/2022-06-09-cloud-compute-program-update/)
+
+[Read more.](https://foundation.rust-lang.org/news/)
+
+???
+
+One of the new tools we have is the Rust foundation, which lauched in early 2021.
+The Rust Foundation is the legal entity that owns Rust and it exists to support Rust's open source maintainers.
+It's done a number of things so far but here are some of the ones I like best.
+The community grants program supports people in the Rust community who are doing maintenance or pursuing projects and aren't paid by their employer to do it.
+The cloud compute program gives access to cloud desktops for people with laptops that aren't up-to-snuff for building Rust.
+
+---
+
+# Dedicated teams
+
+.p60[![types team](./images/types-team.png)]
+
+.citation[
+  Co-led by Jack Huey and myself.
+]
+
+???
+
+The Rust project has traditionally organized itself into teams,
+like the compiler team and the language design team.
+
+One thing we've noticed recently is that there are particular areas that need careful attention.
+
+We've been making an effort to build up teams dedicated to those particular areas.
+
+One such example is the types team, which I co-lead, along with Jack Huey, dedicated to improving Rust's type system implementation and trait solver. 
+
+The hope is that these dedicated teams will improve our ability to fix bugs and land features.
+
+---
+
+# RustcContributor::new
+
+An upcoming program to help people onboard to become Rust contributors:
+
+* Learn how the compiler and tools work
+* Work with a cohort of other learners that can support each other
+* Have office hours where compiler contributors answer your questions
+
+Builds on existing efforts like the [rustc-dev-guide](rustc-dev-guide.rust-lang.org/).
+
+.citation[
+  Read more on Doc Jones's blog: `https://mojosd.medium.com/rustccontributor-new-update-bf92c0a4d90e`
+]
+
+???
+
+Traditionally, onboarding into the Rust compiler has been a self-directed affair.
+People come, find an issue they would like to fix, and try to figure out how it works.
+Now, some issues have mentoring instructions, and you can ask questions on Zulip,
+and we have documentation like the rustc-dev-guide, but it's still a daunting task to get started.
+
+The RustcContributor::new program, not yet started, promises to be a more structured experience where people can sign up and learn how the tools, tests, and other things work.
+
+What I like best about programs like these is that they help deliver on Rust's goal of empowering people but in a different way. It's not just about using Rust, it's about you can participate in Rust's development to learn about how things like compilers and open-source projects work.
+
+---
+
+# Rust in 2024
+
+Did I say there's a lot going on?
+
+* Language extensions like a better borrow checker (polonius), impl trait everywhere, or generic associated types (GATs)
+* Rules for unsafe code and formal models for Rust
+* Library efforts, especially around polonius
+* ...
+
+???
+
+That brings us to the end of my talk. 
+There's so much that I'd love to talk about but there's only so much time.
+I've included a few items here on the slide, but I'm sure I'm forgetting about things.
 
 ---
 
