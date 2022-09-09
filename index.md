@@ -1,12 +1,9 @@
 class: center
 name: title
 count: false
+background-image: url(images/powerpoint-start.png)
+background-size: contain
 
-# Rust in 2024
-
-.p60[![Ferris](./images/ferris.svg)]
-
-.me[.grey[*by* **Nicholas Matsakis**]]
 .left[.citation[View slides at `https://nikomatsakis.github.io/iFood-Tech-Day-2022/`]]
 
 ---
@@ -15,9 +12,9 @@ count: false
 
 .text300[👋🏽 Hi!]
 
+* Senior Principal Engineer at AWS
 * Been working on Rust since 2011
 * Co-lead of the Rust language design team
-* Senior Principal Engineer at AWS
 
 ---
 
@@ -26,56 +23,6 @@ count: false
 .center[.p80[![Foundation sponsors](images/foundation-sponsors.png)]]
 
 ... and those are just the foundation sponsors.
-
----
-
-# What is this "Rust"
-
-From the website:
-
-> A language empowering everyone to build reliable and efficient software.
-
----
-
-# When should I use it?
-
-From the website:
-
-> A language empowering everyone to build **reliable and efficient software**.
-
-Rust's design assumes you're want to invest the time to make your software more reliable, more efficient.
-
-.citation[
-  Doesn't mean you can't use it for anything and everything, mind you. 😁
-]
-
----
-
-# But also...
-
-From the website:
-
-> A language **empowering everyone** to build reliable and efficient software.
-
-Rust is meant to be accessible and productive.
-
----
-
-# The goal is simple
-
-.center[
-  .p40[
-    ![Lucy](images/Rust_Lucy-Art-A.svg)
-  ]
-]
-
-.center[Hack without fear!]
-
-.citation[
-  RustConf 2017 artwork owned by [Tilde](https://www.tilde.io/) and licensed under Creative Commons.
-
-  Slogan coined by Felix Klock.
-]
 
 ---
 
@@ -115,8 +62,19 @@ Rust is meant to be accessible and productive.
 
 # Rust as the foundational layer
 
-* Embedded IoT
+* Embedded, IoT
 
+--
+
+.p60[![AutoSar](images/autosar.png)]
+
+.p60[![AutoSar](images/espressif.png)]
+
+.citation[
+  `https://www.autosar.org/news-events/details/autosar-investigates-how-the-programming-language-rust-could-be-applied-in-adaptive-platform-context/` <br>
+
+  `https://www.espressif.com/en/news/ESP_RUST_training`
+]
 ---
 
 # Rust as the foundational layer
@@ -125,7 +83,7 @@ Stuff like...
 
 * Cloud providers like AWS, Microsoft, Google, Fastly, Cloudflare, etc
 * Operating system kernels
-* Embedded IoT
+* Embedded, IoT
 
 --
 
@@ -137,61 +95,187 @@ Stuff like...
 
 ---
 
-# Most folks come for the performance
+# Why work on Rust?
+
+???
+
+Why work on Rust for so long?
+
+Do I just hate garbage collectors?
 
 --
 
-.p60[![Why discord is switching from Go to Rust](./images/why-discord-is-switching-from-go-to-rust.png)]
+![Garbage collection](./images/gc.gif)
 
-> Remarkably, we had only put very basic thought into optimization as the Rust version was written. **Even with just basic optimization, Rust was able to outperform the hyper hand-tuned Go version.** This is a huge testament to how easy it is to write efficient programs with Rust compared to the deep dive we had to do with Go.
+???
 
-.citation[
-    `https://discord.com/blog/why-discord-is-switching-from-go-to-rust` (emphasis theirs)<br>
-    *Caveat:* This article dates from 2020 and Go has improved their GC performance in the interim.
-]
+No, though I do think they have a tendency to make a mess.
 
 ---
 
-# But then they fall in love
+# Why work on Rust?
 
-But look at what comes next:
+???
+
+I love Rust because I like to see people cool stuff, and Rust is great at that.
+
+---
+
+# Why work on Rust?
+
+???
+
+I love Rust because I like to see people cool stuff, and Rust is great at that.
+
+--
+
+![Quote from web page: "Rust is a language for helping everyone to build reliable and efficient software"](./images/rust-web-page.png)
+
+???
+
+It's right there on our page: Rust is a tool for helping everyone to build
+reliable and efficient software. And what could be more rewarding than that?
+
+There's a lot packed into this To start with, the phrase *empowering everyone*
+refers to the fact that Rust aims to broaden the pool of people doing systems
+programming. We want to get past the idea of *systems programming wizards* and build
+an accessible tool that can be used by anybody who needs to build a fast, reliable
+program. Interestingly, while a lot of Rust's users have a background in C++, there are
+also a number of people who jump to Rust from higher-level languages like Python, JavaScript,
+or Go, and we're proud of that.
+
+---
+
+# Most folks come for the performance
+
+???
+
+Over the years, I've noticed a trend in how Rust adoption plays out.
+
+People come to Rust because they have a service that is running too slowly.
+
+---
+
+# Most folks come for the performance
+
+![Discord: why switching from Go to Rust](images/discord-title.png)
+
+.citation[
+    `https://discord.com/blog/why-discord-is-switching-from-go-to-rust`
+]
+
+???
+
+Take Discord, for instance. In 2020, they ported a service to Rust, from Go.
+
+---
+
+# Most folks come for the performance
+
+![Chart](images/discord-chart-gc.png)
+
+.gcpause[![Arrow pointing to GC pause](./images/Arrow.png)]
+
+???
+
+This service was a foundational one for them, which tracked which messages had been read and which had not.
+
+They were having problems with the Go garbage collector, which was inserting collection pauses every so often, causing their peak latency to spike. (In fairness, the Go GC has been updated since the post was written.)
+
+---
+
+# Most folks come for the performance
+
+![Chart](images/discord-chart-gc.png)
+
+.rustperf[![Arrow pointing to smooth Rust perf](./images/Arrow.png)]
+
+???
+
+They rewrote the service in Rust and were able to achieve the smooth, uniform latency they were looking for.
+
+---
+
+# But Rust let them do more
+
+> We no longer had to deal with garbage collection, so we figured we could raise the cap of the cache and get even better performance. (...) The results below speak for themselves. **Notice the average time is now measured in microseconds and max @mention is measured in milliseconds**.
+
+.citation[`https://discord.com/blog/why-discord-is-switching-from-go-to-rust` (emphasis mine)]
+
+???
+
+But what happened next is more interesting. Once they had the service running, they were able to tinker with it, boosting performance further. 
+
+This makes sense: making a program fast isn't really a function of programming language. The goal of Rust then is mostly to get out of your way and let you build the architecture you wanted.
+
+---
+
+# But they stay for the productivity
 
 > Along with performance, Rust has many advantages for an engineering team. For example, **its type safety and borrow checker make it very easy to refactor code as product requirements change or new learnings about the language are discovered**. Also, the ecosystem and tooling are excellent and have a significant amount of momentum behind them.
 
 .citation[`https://discord.com/blog/why-discord-is-switching-from-go-to-rust` (emphasis mine)]
 
+???
+
+This wasn't just a one-off thing. As time went on, they found that maintaining their code was easier with Rust. They say it was "very easy to refactor code as product requirements change". They were able to move faster.
+
 ---
 
 # It's not just discord
 
-Or pinecone.io:
+pinecone.io:
 
-> What we didn’t expect was the extent to which dev velocity increased and operational incidents decreased. **Dev velocity**, which was supposed to be the claim to fame of Python, **improved dramatically with Rust**. \[..\] Most impressively though, real time operational events dropped almost to zero overnight after the original release. Sure, there are still surprises here and there but, by and large, the core engine has been shockingly stable and predictable.
+> What we didn’t expect was the extent to which dev velocity increased and operational incidents decreased. **Dev velocity**, which was supposed to be the claim to fame of Python, **improved dramatically with Rust**. \[..\] Most impressively though, **real time operational events dropped almost to zero** overnight after the original release. Sure, there are still surprises here and there but, by and large, the core engine has been shockingly stable and predictable.
 
 .citation[`https://www.pinecone.io/learn/inside-the-pinecone/#rust-a-hard-decision-pays-off` (emphasis mine)]
 
+???
+
+It's not just discord. Here is pinecone.io, talking about how they ported from C++/Python to using Rust. They found that it increased their development velocity overall. Furthermore, they no longer had to deal with annoying late-night pages.
+
 ---
 
-# It's not just discord
+# It's not just pinecone
 
-Or Cultivate:
+cultivatehq.com:
 
 > "Rust allowed the experienced developers to move fast and develop features quickly with less errors, and allowed those exploring systems development for the first time to **move forward with confidence, curiosity and protection** from the "gotchas" of C/C++."
 
 .citation[`https://cultivatehq.com/posts/how-we-built-a-visual-studio-code-extension-for-iot-prototyping/` (emphasis mine)]
 
+???
+
+Here's a post from cultivatehq: same thing. Rust let them move forward with confidence.
+
 ---
 
-# What is the key to this confidence?
+# How Rust adoption typically works
+
+* Start by porting some performance critical piece of infra
+* Find that it is fast *and* maintainable
+* Start using Rust for more and more things
+
+---
+
+# What makes Rust so productive?
+
+It's a lot of things.
+
+Tooling is huge: cargo, crates.io, careful error messages.
 
 --
 
-A strict (and sometimes annoying) type system!
+Great frameworks and libraries.
+
+--
+
+But also: a strict (and sometimes annoying) type system!
 
 --
 
 .center[
-  .p60[!["Biden looking confused"](images/biden-huh.gif)]
+  .p40[!["Biden looking confused"](images/biden-huh.gif)]
 ]
 
 ---
@@ -217,43 +301,83 @@ Image credit: Salim Virji `https://www.flickr.com/photos/salim/8594532469/`
 
 ---
 
-# Example: Mozilla and Stylo
+# A common sensation
 
-![Bugzilla 631527, opened 12 years ago, closed 4 years ago](images/bugzilla-631527-intro.png)
-
-???
-
-Let me give you an example, one that comes from Mozilla. Mozilla is the company where Rust was created, of course, and I worked there for a long time. (I'm at AWS now.) Mozilla makes Firefox, the famous browser. A key part of a browser, of course, is the CSS styling system. If you're familiar with CSS, you know that the idea is to traverse the HTML and to determine how big each piece of text should be, whether it should be bold, where it should appear, etc.
-
---
-
-![Comment 1: should be easy](images/bugzilla-631527-comment-1.png)
-
-.opened[![Arrow](./images/Arrow.png)]
+.center[.p80[![Wiley E Coyote falls](images/wiley-batman-fall.gif)]]
 
 ???
 
-So about 12 years ago, it was recognized that this could be done in parallel. In fact, it's an "embarassingly parallel" problem, which means that there is no coordination needed between the threads. Should be easy, though bz. If you know bz, you'll know the guy is a genius. He knows Firefox inside and out. If you read the thread, though, you'll see that not one but two distinct attempts were made in C++ over the years, and neither was successful. Each of them fell prey to various problems: some of them were bugs in the parallel logic, some of them were small variations between windows, mac, and linux that made the code not work, etc. At the end of the day, people felt that the benefits of the patch were not worth the maintenance burden of landing it.
-
---
-
-![Final comment: done with stylo](images/bugzilla-631527-comment-n.png)
-
-.closed[![Arrow](./images/Arrow.png)]
-
-???
-
-The 3rd and final attempt used Rust, and had the codename stylo. This version landed -- though it too was a non-trivial effort, don't get me wrong! Using Rust helped to give the team confidence that they could not only make the code work, but they could maintain it over time. For one thing, the Rust type system helped them to find bugs and logic errors at compilation time, instead of having to test the heck out of the thing. So this was a clear case where Rust enabled the team, a group of hardened C++ experts, to do something they had not been able to achieve before.
+Without a strong type system, it's really easy to build yourself a beautiful looking program, get everything setup, and then find that it goes down the second you put it into production.
 
 ---
 
-# What makes the difference?
+# Bugs not possible in Rust
 
-Rust has a lot of features that support productivity:
+* Segfaults, double frees -- scary C stuff
 
-* Cargo: powerful package management
-* Enums and matching
+???
+
+But a strong type system helps. 
+And it's not just about garbage collection.
+
+Rust's type system rules out segfaults and double frees, which are the kinds of bugs you hit in C code.
+
+But it also rules out null pointer exceptions and data races, both pretty common in Java or Go.
+
+--
+* Null pointer exceptions
+
+--
+* Data races
+
+---
+
+# This could be you
+
+.center[.p80[![Wiley E Coyote flies](images/wiley-flies.gif)]]
+
+???
+
+Strong type systems do require more investment up front. 
+You have to learn how they work.
+But once you've got that, you find that the things you build actually work the way they're supposed to, often the first time.
+
+---
+
+# Full disclosure time
+
+.center[![Who'd have thought a linked list could be so complicated?](images/doh-whod-have-thought.png)]
+
+???
+
+But let's be honest. Rust's type system may be great, but it takes time to learn.
+
+And it's not a great fit for everything. Your code can sometimes wind up having to "work around" the type system rather than benefit from it.
+
+---
+
+# Journey to loving Rust
+
+Most folks take 3-6 months to learn Rust.
+
+At first, it's ridiculously frustrating.
+
+At some point, you turn the corner, and -- for many of us -- it's hard to imagine using another language.
+
+???
+
+My experience is that it takes folks about 3-6 months to learn Rust,
+although it really depends on the individual.
+
+---
+
+# How does the type system help?
+
+Rust's type system eliminates a lot of common bugs:
+
 * No null pointers
+* Enums and matching, make sure you handle every case
+* Explicit, but concise, control-flow for errors
 
 But underlying them all is a core capability.
 
@@ -586,34 +710,6 @@ https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=4a87aac5
 
 .center[![cast spell, burn self](images/firespell.gif)]
 
----
-
-# Design goals for Rust
-
-| | |
-| --- | --- |
-| ⚙️ Reliable | "If it compiles, it works" |
-| 🐎 Performant | "idiomatic code runs efficiently" |
-| 🥰 Supportive | "the language, tools, and community are here to help" |
-| 🧩 Productive | "a little effort does a lot of work" |
-| 🔧 Transparent | "you can predict and control low-level details" |
-| 🤸 Versatile | "you can do anything with Rust" |
-
-.citation[Caveat: These are goals that some of us drafted, not official design goals of the Rust project.]
-
----
-
-# A common sensation
-
---
-
-.center[.p80[![Wiley E Coyote falls](images/wiley-batman-fall.gif)]]
-
----
-
-# This could be you
-
-.center[.p80[![Wiley E Coyote flies](images/wiley-flies.gif)]]
 
 ---
 
@@ -652,7 +748,7 @@ https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=4a87aac5
 
 ---
 
-# Where we landed
+# Where we are now
 
 ```
  ^  |
@@ -758,6 +854,29 @@ How do we do that? Part of is that we have to *be bold*.
 Just because something seems hard, or because we've always done it that way, doesn't mean we should.
 
 I'm going to give a few examples of hard problems in this talk -- ones that I think are controversial, but which have real impact on Rust's users.
+
+---
+
+# Improving the borrow checker
+
+* Rust 2015: "Lexical lifetimes"
+* Rust 2018: "Non-lexical lifetimes" (NLL)
+* Rust 2021: Improved closures
+
+--
+* Rust 2024: Polonius
+
+---
+
+# Rust 2015: Lexical lifetimes
+
+```rust
+fn 
+```
+
+---
+
+# What polonius permits
 
 ---
 
@@ -1069,11 +1188,29 @@ template: keyword-generics
 
 .line2[![Highlight await](images/Arrow.png)]
 
+
 ---
 
 # Conclusion
 
-Rust's goal:
+.center[
+  .p40[
+    ![Lucy](images/Rust_Lucy-Art-A.svg)
+  ]
+]
 
-Be the language of choice when reliability, performance are top considerations.
+.center[**Hack without fear!**]
 
+.citation[
+  RustConf 2017 artwork owned by [Tilde](https://www.tilde.io/) and licensed under Creative Commons.
+
+  Slogan coined by Felix Klock.
+]
+
+---
+
+class: center
+name: title
+count: false
+background-image: url(images/powerpoint-end.png)
+background-size: contain

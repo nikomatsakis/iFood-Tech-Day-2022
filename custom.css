@@ -673,3 +673,26 @@ blockquote p {
 .transparent {
   opacity: 30%;
 }
+
+
+
+
+
+
+
+
+.gcpause img {
+  position: absolute;
+  top: 150px;
+  left: 535px;
+  width: 50px;
+  transform: rotate(135deg);
+}
+
+.rustperf img {
+  position: absolute;
+  top: 225px;
+  left: 545px;
+  width: 50px;
+  transform: rotate(135deg);
+}
