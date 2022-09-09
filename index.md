@@ -533,8 +533,8 @@ I'm also sure that in between this talk and 2024, people are going to have new a
 Some highlights:
 
 * ➡️ Better async Rust experience
+* Improving core Rust
 * Richer diagnostics and learning materials
-* Improved community organization
 
 ???
 
@@ -926,8 +926,218 @@ But if it works out, it will make writing async Rust code that much more natural
 Some highlights:
 
 * ✅ Better async Rust experience
+* ➡️ Improving core Rust
+* Richer diagnostics and learning materials
+
+---
+
+# Inherent vs accidental complexity
+
+???
+
+When it comes to improving core Rust, I think the concept of inherent vs accidental complexity is really useful.
+
+Inherent complexity is complexity that's tied to the problem you are trying to solve.
+Some problems are just *hard*.
+
+Accidentical complexity is something that comes from the way you're trying to solve it.
+Some tools are just hard to *use*.
+
+---
+
+name: code-example
+
+# Inherent vs accidental complexity
+
+```rust
+fn get_lazy(list: &mut Vec<String>) -> &mut String {
+    if let Some(s) = list.first_mut() {
+        return s;
+    }
+
+    list.push(format!("Hello, world!"));
+    list.first_mut().unwrap()
+}
+```
+
+---
+
+template: code-example
+
+.option[![Arrow pointing at option](images/Arrow.png)]
+
+Inherent complexity: Representing many possibilities
+
+Accidental complexity: `Option` types, `if let` vs `match`
+
+???
+
+
+Here's an example we can use to explore this idea a bit. 
+
+This is a function that, given a list, returns a mutable reference to the first item. If the
+list is empty, it first pushes a dummy item and returns that.
+
+There's a lot of Rust in this example. For example, you can see the `Option` type here.
+This is Rust's answer to null pointers, borrowed from ML and many other 
+functional languages. 
+
+The ability to create enums -- data types that can be one of many alternatives -- is
+a key part of how Rust models target domains, and it's one of those features that
+everybody loves.
+
+It's also part of how Rust achieves reliability: if you want to have something
+be nullable, you have to say so explicitly.
+
+---
+
+template: code-example
+
+.and-mut[![Arrow pointing at and-mut](images/Arrow.png)]
+
+Inherent complexity: Mutability xor sharing, pointers and references
+
+Accidental complexity: `&mut` syntax
+
+???
+
+`&mut` references are a key part of Rust. 
+
+The idea is that when you create a reference, you gain unique access to that data
+for as long as the reference runs. 
+
+This *concept* I think is inherent complexity. It forces a certain style onto Rust code that takes a while to get used to. 
+
+But the details of how Rust realizes it, those can often be accidental.
+
+---
+
+template: code-example
+
+.ret-ref[![Arrow pointing at returning a ref](images/Arrow.png)]
+
+Inherent complexity: Returning a derived reference
+
+Accidental complexity: Lifetime elision
+
+???
+
+As a simple example, this type signature indicates that the function will return
+a reference, and moreover that the return will come from the input. This is because
+of Rust's rules called "lifetime elision". 
+
+--
+
+```rust
+fn get_lazy<'a>(list: &'a mut Vec<String>) -> &'a mut String
+```
+
+---
+
+template: code-example
+
+.polonius1[![Return of `s`](images/Arrow.png)]
+
+Accidental complexity: This code doesn't build!
+
+* `s` was returned from the function, so `s` is borrowed for the rest of the function
+
+???
+
+But the reason I wanted to show you this example is because, in fact, it doesn't
+compile, although arguably it should. Why not? The problem is a limitation of
+our analysis. When you return a reference, as we do here, the compiler considers
+that reference to hold for the entire rest of the function.
+
+---
+
+template: code-example
+
+.polonius2[![Come from `list`](images/Arrow.png)]
+
+* `s` was returned from the function, so `s` is borrowed for the rest of the function
+* `s` came from `list`, so `list` is borrowed for the rest of the function too
+
+???
+
+Since `s` came from `list`, that means that we borrow `list` and don't permit
+anyone to use it.
+
+---
+
+template: code-example
+
+.polonius3[![Illegal push](images/Arrow.png)]
+
+* `s` was returned from the function, so `s` is borrowed for the rest of the function
+* `s` came from `list`, so `list` is borrowed for the rest of the function too
+* so `push` is illegal
+
+[Try it out](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=04de40f1c3a8805c105821b91ef9fb88)
+
+???
+
+Which means we get an error here, when you call `push`.
+
+---
+
+# Workaround
+
+```rust
+fn get_lazy(list: &mut Vec<String>) -> &mut String {
+    if !list.is_empty() {
+        let s = list.first_mut().unwrap();
+        return s;
+    }
+
+    list.push(format!("Hello, world!"));
+    list.first_mut().unwrap()
+}
+```
+
+.polonius4[![Borrow is inside the if](images/Arrow.png)]
+
+Workaround: move borrow inside the if
+
+???
+
+As it happens, you can rewrite this program like so, and it will work.
+
+How would you know that this is the fix? This code is definitely worse than the previous code. What's worse, if you wrote the old code, expecting it to compile, you would like feel like you didn't understand Rust when you can't figure out why it's getting an error.
+
+This is accidental complexity. As it happens, we know the fix -- there's a new analysis called polonius that we've been working on, and it would accept the original program. 
+
+---
+
+# Reducing accidental complexity
+
+* Improving the borrow checker with polonius
+* [Perfect derive](https://smallcultfollowing.com/babysteps/blog/2022/04/12/implied-bounds-and-perfect-derive/)
+* [Expanded implied bounds](https://smallcultfollowing.com/babysteps/blog/2022/04/12/implied-bounds-and-perfect-derive/) (stop copying-and-pasting where-clauses)
+* Language extensions work anywhere:
+  * Async functions in traits
+  * Impl trait everywhere
+  * Generic associated types (now in FCP!)
+
+???
+
+There is a lot of in-flight work to reduce accidental complexity in Rust.
+
+Here is a sampling. I don't have time to go into the details, but a common theme is that we try to take programs that *should work* and make them work.
+
+Sometimes this is something like the borrow checker being too conservative, or the compiler's type checker not being able to see that 2 + 2 = 4.
+
+Other times though its features that only work in some places but not others -- like async function not working in traits.
+
+---
+
+# Rust in 2024
+
+Some highlights:
+
+* ✅ Better async Rust experience
+* ✅ Improving core Rust
 * ➡️ Richer diagnostics and learning materials
-* Improved community organization
 
 ---
 
@@ -1125,8 +1335,8 @@ you probably don't understand this aspect of ownership. And then offer you tailo
 Some highlights:
 
 * ✅ Better async Rust experience
+* ✅ Improving core Rust
 * ✅ Richer diagnostics and learning materials
-* ➡️ Improved organization of the Rust project
 
 ---
 
@@ -1134,11 +1344,12 @@ Some highlights:
 
 ???
 
-I mentioned at the beginning that Rust is a community project.
-One of the challenges that we've faced over time is how to organize the Rust project itself.
-You see, we're a big, open-source organization with hundreds of regular contributors.
-Many of those contributors work at companies that pay them to work on Rust, but many are volunteers.
-We need to help this open-source organization grow and thrive.
+Before we close, I want to take a bit to talk about how the Rust project operates.
+The Rust project is an open-source project, which means that the work is done by a combination of 100s of long-time maintainers and 1000s of one-off contributors.
+Some of those maintainers and contributors are paid by their employers, and others are volunteers.
+Open-source can be an amazing source of ideas and inspiration,
+but it can also take a lot of work to keep the whole thing organized.
+If we're going to get to Rust 2024, we need to pay attention to the project as well.
 
 ---
 
