@@ -1184,7 +1184,7 @@ The hope is that these dedicated teams will improve our ability to fix bugs and 
 
 ---
 
-# RustcContributor::new
+# Being bold: RustcContributor::new
 
 An upcoming program to help people onboard to become Rust contributors:
 
