@@ -908,7 +908,7 @@ async<A> fn read_to_string(
 Goal: Write code that might be async, might be const, etc.
 
 .citation[
-  Led by Yoshua Wuyt and Oli Scherer. Read more: https://blog.yoshuawuyts.com/announcing-the-keyword-generics-initiative/
+  Led by Yoshua Wuyts and Oli Scherer. Read more: https://blog.yoshuawuyts.com/announcing-the-keyword-generics-initiative/
 ]
 
 ???
