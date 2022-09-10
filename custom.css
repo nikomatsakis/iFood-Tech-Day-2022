@@ -696,3 +696,63 @@ blockquote p {
   width: 50px;
   transform: rotate(135deg);
 }
+
+
+
+
+
+.and-mut img {
+  position: absolute;
+  top: 90px;
+  left: 235px;
+  width: 50px;
+  transform: rotate(90deg);
+}
+
+.ret-ref img {
+  position: absolute;
+  top: 90px;
+  left: 450px;
+  width: 50px;
+  transform: rotate(90deg);
+}
+
+.option img {
+  position: absolute;
+  top: 170px;
+  left: 230px;
+  width: 50px;
+  transform: rotate(195deg);
+}
+
+.polonius1 img {
+  position: absolute;
+  top: 200px;
+  left: 230px;
+  width: 50px;
+  transform: rotate(195deg);
+}
+
+.polonius2 img {
+  position: absolute;
+  top: 175px;
+  left: 300px;
+  width: 50px;
+  transform: rotate(225deg);
+}
+
+.polonius3 img {
+  position: absolute;
+  top: 225px;
+  left: 180px;
+  width: 50px;
+  transform: rotate(135deg);
+}
+
+.polonius4 img {
+  position: absolute;
+  top: 210px;
+  left: 240px;
+  width: 50px;
+  transform: rotate(235deg);
+}
